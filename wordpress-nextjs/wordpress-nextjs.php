@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WORDPRESS_NEXTJS_VERSION', '1.0.0' );
+define( 'WORDPRESS_NEXTJS_VERSION', '0.1.0' );
 
 /**
  * The code that runs during plugin activation.
@@ -78,4 +78,5 @@ function run_wordpress_nextjs() {
 	$plugin = new Wordpress_Nextjs();
 	$plugin->run();
 }
+
 run_wordpress_nextjs();

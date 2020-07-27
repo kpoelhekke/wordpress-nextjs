@@ -81,9 +81,17 @@ class Wordpress_Nextjs_Settings {
 		);
 
 		add_settings_field(
-			'base64_images',
+			'base64_preview',
 			__( 'Enable image thumbnails', $this->plugin_name ),
-			array( $this, 'base64_images_callback' ),
+			array( $this, 'base64_preview_callback' ),
+			$this->plugin_name,
+			'wordpress-nextjs-images'
+		);
+
+		add_settings_field(
+			'image_srcsets',
+			__( 'Enable image srcsets ', $this->plugin_name ),
+			array( $this, 'image_srset_callback' ),
 			$this->plugin_name,
 			'wordpress-nextjs-images'
 		);
@@ -104,8 +112,13 @@ class Wordpress_Nextjs_Settings {
 	 */
 	public function sanitize( $input ) {
 		$new_input = array();
-		if ( isset( $input['base64_images'] ) ) {
-			$new_input['base64_images'] = 1;
+
+		if ( isset( $input['base64_preview'] ) ) {
+			$new_input['base64_preview'] = 1;
+		}
+
+		if ( isset( $input['image_srcsets'] ) ) {
+			$new_input['image_srcsets'] = 1;
 		}
 
 		if ( isset( $input['title'] ) ) {
@@ -122,12 +135,19 @@ class Wordpress_Nextjs_Settings {
 		_e( 'WordPress NextJS can add base64 encoded image thumbnails to all images in the rest API. These can be used as a preview when your images are still loading.', $this->plugin_name );
 	}
 
-	public function base64_images_callback() {
-
+	public function base64_preview_callback() {
 		printf(
-			'<input type="checkbox" id="base64_images" name="%s[base64_images]" value="true" %s />',
+			'<input type="checkbox" id="base64_preview" name="%s[base64_preview]" value="true" %s />',
 			$this->plugin_name,
-			isset( $this->options['base64_images'] ) ? checked( $this->options['base64_images'], 1, false ) : ''
+			isset( $this->options['base64_preview'] ) ? checked( $this->options['base64_preview'], 1, false ) : ''
+		);
+	}
+
+	public function image_srset_callback() {
+		printf(
+			'<input type="checkbox" id="base64_preview" name="%s[image_srcsets]" value="true" %s />',
+			$this->plugin_name,
+			isset( $this->options['image_srcsets'] ) ? checked( $this->options['image_srcsets'], 1, false ) : ''
 		);
 	}
 

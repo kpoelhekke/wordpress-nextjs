@@ -1,6 +1,9 @@
 {
   "name": "dotred/wordpress-nextjs",
   "description": "Wordpress NextJS plugin",
+  "type": "wordpress-plugin",
+  "license": "GPL-3.0+",
+  "version": "0.1.0",
   "authors": [
     {
       "name": "Koen Poelhekke",
@@ -17,12 +20,13 @@
   },
   "scripts": {
     "cghooks": "vendor/bin/cghooks",
-    "phpcs": "phpcs --standard=Wordpress"
+    "phpcs": "phpcs --standard=Wordpress",
+    "format": "./vendor/bin/phpcbf --standard=Wordpress wordpress-nextjs"
   },
   "extra": {
     "hooks": {
       "pre-commit": [
-        "./vendor/bin/phpcbf --standard=Wordpress wordpress-nextjs"
+        "composer format"
       ]
     }
   }
