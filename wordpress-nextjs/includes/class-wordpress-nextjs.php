@@ -111,10 +111,10 @@ class Wordpress_Nextjs {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wordpress-nextjs-i18n.php';
 
-        /**
-         * The class responsible for defining all actions that occur in the settings area.
-         */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wordpress-nextjs-settings.php';
+		/**
+		 * The class responsible for defining all actions that occur in the settings area.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wordpress-nextjs-settings.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
@@ -152,7 +152,7 @@ class Wordpress_Nextjs {
 	 */
 	private function define_admin_hooks() {
 
-        new Wordpress_Nextjs_Settings( $this->get_plugin_name() );
+		new Wordpress_Nextjs_Settings( $this->get_plugin_name() );
 
 	}
 

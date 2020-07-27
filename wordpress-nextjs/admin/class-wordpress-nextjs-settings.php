@@ -1,6 +1,8 @@
 <?php
+
 class Wordpress_Nextjs_Settings
 {
+
     /**
      * Holds the values to be used in the fields callbacks
      */
@@ -11,7 +13,7 @@ class Wordpress_Nextjs_Settings
      *
      * @since    1.0.0
      * @access   private
-     * @var      string    $plugin_name    The ID of this plugin.
+     * @var      string $plugin_name The ID of this plugin.
      */
     private $plugin_name;
 
@@ -22,8 +24,8 @@ class Wordpress_Nextjs_Settings
     {
         $this->plugin_name = $plugin_name;
 
-        add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
-        add_action( 'admin_init', array( $this, 'page_init' ) );
+        add_action('admin_menu', array($this, 'add_plugin_page'));
+        add_action('admin_init', array($this, 'page_init'));
     }
 
     /**
@@ -37,7 +39,7 @@ class Wordpress_Nextjs_Settings
             __('NextJS', $this->plugin_name),
             'administrator',
             $this->plugin_name,
-            array( $this, 'create_admin_page' )
+            array($this, 'create_admin_page')
         );
     }
 
@@ -47,15 +49,16 @@ class Wordpress_Nextjs_Settings
     public function create_admin_page()
     {
         // Set class property
-        $this->options = get_option( 'my_option_name' );
+        $this->options = get_option($this->plugin_name);
+
         ?>
         <div class="wrap">
-            <h1>My Settings</h1>
+            <h1><?php _e('NextJS Settings', $this->plugin_name) ?></h1>
             <form method="post" action="options.php">
                 <?php
                 // This prints out all hidden setting fields
-                settings_fields( 'my_option_group' );
-                do_settings_sections( 'my-setting-admin' );
+                settings_fields($this->plugin_name);
+                do_settings_sections($this->plugin_name);
                 submit_button();
                 ?>
             </form>
@@ -69,32 +72,32 @@ class Wordpress_Nextjs_Settings
     public function page_init()
     {
         register_setting(
-            'my_option_group', // Option group
-            'my_option_name', // Option name
-            array( $this, 'sanitize' ) // Sanitize
+            $this->plugin_name,
+            $this->plugin_name,
+            array($this, 'sanitize')
         );
 
         add_settings_section(
-            'setting_section_id', // ID
-            'My Custom Settings', // Title
-            array( $this, 'print_section_info' ), // Callback
-            'my-setting-admin' // Page
+            'wordpress-nextjs-images',
+            __('Images', $this->plugin_name),
+            array($this, 'print_section_info'),
+            $this->plugin_name
         );
 
         add_settings_field(
-            'id_number', // ID
-            'ID Number', // Title
-            array( $this, 'id_number_callback' ), // Callback
-            'my-setting-admin', // Page
-            'setting_section_id' // Section
+            'base64_images',
+            __('Enable image thumbnails', $this->plugin_name),
+            array($this, 'base64_images_callback'),
+            $this->plugin_name,
+            'wordpress-nextjs-images'
         );
 
         add_settings_field(
             'title',
             'Title',
-            array( $this, 'title_callback' ),
-            'my-setting-admin',
-            'setting_section_id'
+            array($this, 'title_callback'),
+            $this->plugin_name,
+            'wordpress-nextjs-images'
         );
     }
 
@@ -103,14 +106,16 @@ class Wordpress_Nextjs_Settings
      *
      * @param array $input Contains all settings fields as array keys
      */
-    public function sanitize( $input )
+    public function sanitize($input)
     {
         $new_input = array();
-        if( isset( $input['id_number'] ) )
-            $new_input['id_number'] = absint( $input['id_number'] );
+        if (isset($input['base64_images'])) {
+            $new_input['base64_images'] = 1;
+        }
 
-        if( isset( $input['title'] ) )
-            $new_input['title'] = sanitize_text_field( $input['title'] );
+        if (isset($input['title'])) {
+            $new_input['title'] = sanitize_text_field($input['title']);
+        }
 
         return $new_input;
     }
@@ -120,17 +125,16 @@ class Wordpress_Nextjs_Settings
      */
     public function print_section_info()
     {
-        print 'Enter your settings below:';
+        _e('Wordpress NextJS can add base64 encoded image thumbnails to all images in the rest API. These can be used as a preview when your images are still loading.', $this->plugin_name);
     }
 
-    /**
-     * Get the settings option array and print one of its values
-     */
-    public function id_number_callback()
+    public function base64_images_callback()
     {
+
         printf(
-            '<input type="text" id="id_number" name="my_option_name[id_number]" value="%s" />',
-            isset( $this->options['id_number'] ) ? esc_attr( $this->options['id_number']) : ''
+            '<input type="checkbox" id="base64_images" name="%s[base64_images]" value="true" %s />',
+            $this->plugin_name,
+            isset($this->options['base64_images']) ? checked($this->options['base64_images'], 1, false) : ''
         );
     }
 
@@ -140,8 +144,9 @@ class Wordpress_Nextjs_Settings
     public function title_callback()
     {
         printf(
-            '<input type="text" id="title" name="my_option_name[title]" value="%s" />',
-            isset( $this->options['title'] ) ? esc_attr( $this->options['title']) : ''
+            '<input type="text" id="title" name="%s[title]" value="%s" />',
+            $this->plugin_name,
+            isset($this->options['title']) ? esc_attr($this->options['title']) : ''
         );
     }
 }
