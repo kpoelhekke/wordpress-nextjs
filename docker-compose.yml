@@ -15,7 +15,7 @@ services:
       WORDPRESS_DEBUG: 1
     volumes:
       - wordpress:/var/www/html
-      - ./wordpress-nextjs:/var/www/html/wp-content/plugins/wordpress-nextjs:rw
+      - .:/var/www/html/wp-content/plugins/wordpress-nextjs:rw
 
   database:
     image: mysql:5.7
