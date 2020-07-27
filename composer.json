@@ -16,9 +16,10 @@
         "brainmaestro/composer-git-hooks": "*"
     },
     "scripts": {
+        "cghooks": "vendor/bin/cghooks",
         "phpcs": "phpcs --standard=Wordpress"
     },
     "extra":{
-        "pre-commit": "./vendor/bin/phpcbf --standard=Wordpress ./wordpress-nextjs"
+        "pre-commit": ["./vendor/bin/phpcbf --standard=Wordpress wordpress-nextjs"]
     }
 }
