@@ -1,25 +1,29 @@
 {
-    "name": "dotred/wordpress-nextjs",
-    "description": "Wordpress NextJS plugin",
-    "authors": [
-        {
-            "name": "Koen Poelhekke",
-            "email": "info@dotred.nl"
-        }
-    ],
-    "require": {},
-    "require-dev": {
-        "dealerdirect/phpcodesniffer-composer-installer": "*",
-        "object-calisthenics/phpcs-calisthenics-rules": "*",
-        "phpcompatibility/php-compatibility": "*",
-        "wp-coding-standards/wpcs": "*",
-        "brainmaestro/composer-git-hooks": "*"
-    },
-    "scripts": {
-        "cghooks": "vendor/bin/cghooks",
-        "phpcs": "phpcs --standard=Wordpress"
-    },
-    "extra":{
-        "pre-commit": ["./vendor/bin/phpcbf --standard=Wordpress wordpress-nextjs"]
+  "name": "dotred/wordpress-nextjs",
+  "description": "Wordpress NextJS plugin",
+  "authors": [
+    {
+      "name": "Koen Poelhekke",
+      "email": "info@dotred.nl"
     }
+  ],
+  "require": {},
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "*",
+    "object-calisthenics/phpcs-calisthenics-rules": "*",
+    "phpcompatibility/php-compatibility": "*",
+    "wp-coding-standards/wpcs": "*",
+    "brainmaestro/composer-git-hooks": "*"
+  },
+  "scripts": {
+    "cghooks": "vendor/bin/cghooks",
+    "phpcs": "phpcs --standard=Wordpress"
+  },
+  "extra": {
+    "hooks": {
+      "pre-commit": [
+        "./vendor/bin/phpcbf --standard=Wordpress wordpress-nextjs"
+      ]
+    }
+  }
 }

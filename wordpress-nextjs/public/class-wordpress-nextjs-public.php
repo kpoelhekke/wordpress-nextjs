@@ -29,7 +29,6 @@ class Wordpress_Nextjs_Public {
 	 * @param string $url
 	 */
 	public function remove_base_url( $url ) {
-
-		return untrailingslashit( str_replace( home_url(), '', $url ) );
+			return untrailingslashit( str_replace( home_url(), '', $url ) );
 	}
 }
