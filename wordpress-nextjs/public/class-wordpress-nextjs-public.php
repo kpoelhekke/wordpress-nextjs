@@ -22,46 +22,14 @@
  */
 class Wordpress_Nextjs_Public {
 
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
-	private $plugin_name;
 
 	/**
-	 * The version of this plugin.
+	 * Remove the base url from the permalinks
 	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
+	 * @param string $url
 	 */
-	private $version;
+	public function remove_base_url( $url ) {
 
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
-	 */
-	public function __construct( $plugin_name, $version ) {
-
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-
+		return untrailingslashit( str_replace( home_url(), '', $url ) );
 	}
-
-    /**
-     * Remove the base url from the permalinks
-     *
-     * @param string $url
-     */
-	public function remove_base_url($url) {
-
-        return untrailingslashit(str_replace(home_url(), '', $url));
-
-    }
 }

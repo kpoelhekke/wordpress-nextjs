@@ -8,14 +8,14 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://www.dotred.nl
- * @since             1.0.0
- * @package           Wordpress_Nextjs
+ * @link    https://www.dotred.nl
+ * @since   1.0.0
+ * @package Wordpress_Nextjs
  *
  * @wordpress-plugin
- * Plugin Name:       Wordpress NextJS
+ * Plugin Name:       WordPress NextJS
  * Plugin URI:        https://wordpress-nextjs.dev
- * Description:       Wordpress NextJS plugin. Transforms rest API responses and preview authentication integration.
+ * Description:       WordPress NextJS plugin. Transforms rest API responses and preview authentication integration.
  * Version:           1.0.0
  * Author:            Koen Poelhekke
  * Author URI:        https://www.dotred.nl
@@ -42,7 +42,7 @@ define( 'WORDPRESS_NEXTJS_VERSION', '1.0.0' );
  * This action is documented in includes/class-wordpress-nextjs-activator.php
  */
 function activate_wordpress_nextjs() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-nextjs-activator.php';
+	include_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-nextjs-activator.php';
 	Wordpress_Nextjs_Activator::activate();
 }
 
@@ -51,9 +51,10 @@ function activate_wordpress_nextjs() {
  * This action is documented in includes/class-wordpress-nextjs-deactivator.php
  */
 function deactivate_wordpress_nextjs() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-nextjs-deactivator.php';
+	include_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-nextjs-deactivator.php';
 	Wordpress_Nextjs_Deactivator::deactivate();
 }
+
 
 register_activation_hook( __FILE__, 'activate_wordpress_nextjs' );
 register_deactivation_hook( __FILE__, 'deactivate_wordpress_nextjs' );
@@ -69,14 +70,12 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-nextjs.php';
  *
  * Since everything within the plugin is registered via hooks,
  * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
+ * not affect the page life cycle.g
  *
- * @since    1.0.0
+ * @since 1.0.0
  */
 function run_wordpress_nextjs() {
-
 	$plugin = new Wordpress_Nextjs();
 	$plugin->run();
-
 }
 run_wordpress_nextjs();
