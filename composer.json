@@ -1,0 +1,14 @@
+{
+    "name": "dotred/wordpress-nextjs",
+    "description": "Wordpress NextJS plugin",
+    "authors": [
+        {
+            "name": "Koen Poelhekke",
+            "email": "info@dotred.nl"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.*"
+    }
+}

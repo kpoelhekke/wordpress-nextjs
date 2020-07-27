@@ -170,8 +170,9 @@ class Wordpress_Nextjs {
 
 		$plugin_public = new Wordpress_Nextjs_Public( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_filter( 'page_link', $plugin_public, 'remove_base_url' );
+		$this->loader->add_filter( 'post_link', $plugin_public, 'remove_base_url' );
+		$this->loader->add_filter( 'post_type_link', $plugin_public, 'remove_base_url' );
 
 	}
 
