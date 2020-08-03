@@ -1,6 +1,6 @@
 <?php
 
-class Wordpress_Nextjs_Settings {
+class Wordpress_Nextjs_Admin {
 
 
 	/**
@@ -9,20 +9,9 @@ class Wordpress_Nextjs_Settings {
 	private $options;
 
 	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string $plugin_name The ID of this plugin.
-	 */
-	private $plugin_name;
-
-	/**
 	 * Start up
 	 */
-	public function __construct( $plugin_name ) {
-		$this->plugin_name = $plugin_name;
-
+	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
 		add_action( 'admin_init', array( $this, 'page_init' ) );
 	}
@@ -33,10 +22,10 @@ class Wordpress_Nextjs_Settings {
 	public function add_plugin_page() {
 		// This page will be under "Settings"
 		add_options_page(
-			__( 'NextJS', $this->plugin_name ),
-			__( 'NextJS', $this->plugin_name ),
+			__( 'NextJS', 'wordpress-nextjs' ),
+			__( 'NextJS', 'wordpress-nextjs' ),
 			'administrator',
-			$this->plugin_name,
+			'wordpress-nextjs',
 			array( $this, 'create_admin_page' )
 		);
 	}
@@ -46,20 +35,20 @@ class Wordpress_Nextjs_Settings {
 	 */
 	public function create_admin_page() {
 		// Set class property
-		$this->options = get_option( $this->plugin_name );
+		$this->options = get_option( 'wordpress-nextjs' );
 
 		?>
-		<div class="wrap">
-			<h1><?php _e( 'NextJS Settings', $this->plugin_name ); ?></h1>
-			<form method="post" action="options.php">
+        <div class="wrap">
+            <h1><?php _e( 'NextJS Settings', 'wordpress-nextjs' ); ?></h1>
+            <form method="post" action="options.php">
 				<?php
 				// This prints out all hidden setting fields
-				settings_fields( $this->plugin_name );
-				do_settings_sections( $this->plugin_name );
+				settings_fields( 'wordpress-nextjs' );
+				do_settings_sections( 'wordpress-nextjs' );
 				submit_button();
 				?>
-			</form>
-		</div>
+            </form>
+        </div>
 		<?php
 	}
 
@@ -68,31 +57,31 @@ class Wordpress_Nextjs_Settings {
 	 */
 	public function page_init() {
 		register_setting(
-			$this->plugin_name,
-			$this->plugin_name,
+			'wordpress-nextjs',
+			'wordpress-nextjs',
 			array( $this, 'sanitize' )
 		);
 
 		add_settings_section(
 			'wordpress-nextjs-images',
-			__( 'Images', $this->plugin_name ),
+			__( 'Images', 'wordpress-nextjs' ),
 			array( $this, 'print_section_info' ),
-			$this->plugin_name
+			'wordpress-nextjs'
 		);
 
 		add_settings_field(
 			'base64_preview',
-			__( 'Enable image thumbnails', $this->plugin_name ),
+			__( 'Enable image thumbnails', 'wordpress-nextjs' ),
 			array( $this, 'base64_preview_callback' ),
-			$this->plugin_name,
+			'wordpress-nextjs',
 			'wordpress-nextjs-images'
 		);
 
 		add_settings_field(
 			'image_srcsets',
-			__( 'Enable image srcsets ', $this->plugin_name ),
+			__( 'Enable image srcsets ', 'wordpress-nextjs' ),
 			array( $this, 'image_srset_callback' ),
-			$this->plugin_name,
+			'wordpress-nextjs',
 			'wordpress-nextjs-images'
 		);
 
@@ -100,7 +89,7 @@ class Wordpress_Nextjs_Settings {
 			'title',
 			'Title',
 			array( $this, 'title_callback' ),
-			$this->plugin_name,
+			'wordpress-nextjs',
 			'wordpress-nextjs-images'
 		);
 	}
@@ -132,13 +121,13 @@ class Wordpress_Nextjs_Settings {
 	 * Print the Section text
 	 */
 	public function print_section_info() {
-		_e( 'WordPress NextJS can add base64 encoded image thumbnails to all images in the rest API. These can be used as a preview when your images are still loading.', $this->plugin_name );
+		_e( 'WordPress NextJS can add base64 encoded image thumbnails to all images in the rest API. These can be used as a preview when your images are still loading.', 'wordpress-nextjs' );
 	}
 
 	public function base64_preview_callback() {
 		printf(
 			'<input type="checkbox" id="base64_preview" name="%s[base64_preview]" value="true" %s />',
-			$this->plugin_name,
+			'wordpress-nextjs',
 			isset( $this->options['base64_preview'] ) ? checked( $this->options['base64_preview'], 1, false ) : ''
 		);
 	}
@@ -146,7 +135,7 @@ class Wordpress_Nextjs_Settings {
 	public function image_srset_callback() {
 		printf(
 			'<input type="checkbox" id="base64_preview" name="%s[image_srcsets]" value="true" %s />',
-			$this->plugin_name,
+			'wordpress-nextjs',
 			isset( $this->options['image_srcsets'] ) ? checked( $this->options['image_srcsets'], 1, false ) : ''
 		);
 	}
@@ -157,7 +146,7 @@ class Wordpress_Nextjs_Settings {
 	public function title_callback() {
 		printf(
 			'<input type="text" id="title" name="%s[title]" value="%s" />',
-			$this->plugin_name,
+			'wordpress-nextjs',
 			isset( $this->options['title'] ) ? esc_attr( $this->options['title'] ) : ''
 		);
 	}

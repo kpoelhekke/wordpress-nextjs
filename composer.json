@@ -11,23 +11,6 @@
     }
   ],
   "require": {},
-  "require-dev": {
-    "dealerdirect/phpcodesniffer-composer-installer": "*",
-    "object-calisthenics/phpcs-calisthenics-rules": "*",
-    "phpcompatibility/php-compatibility": "*",
-    "wp-coding-standards/wpcs": "*",
-    "brainmaestro/composer-git-hooks": "*"
-  },
-  "scripts": {
-    "cghooks": "vendor/bin/cghooks",
-    "phpcs": "phpcs --standard=Wordpress",
-    "format": "./vendor/bin/phpcbf --standard=Wordpress wordpress-nextjs"
-  },
-  "extra": {
-    "hooks": {
-      "pre-commit": [
-        "composer format"
-      ]
-    }
-  }
+  "require-dev": {},
+  "scripts": {}
 }

@@ -35,48 +35,13 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WORDPRESS_NEXTJS_VERSION', '0.1.0' );
+define( 'WORDPRESS_NEXTJS_VERSION', '1.0.0' );
 
-/**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-wordpress-nextjs-activator.php
- */
-function activate_wordpress_nextjs() {
-	include_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-nextjs-activator.php';
-	Wordpress_Nextjs_Activator::activate();
+require __DIR__ . '/class-wordpress-nextjs-admin.php';
+require __DIR__ . '/class-wordpress-nextjs-api.php';
+
+if ( is_admin() ) {
+	new Wordpress_Nextjs_Admin();
+} else {
+	new Wordpress_Nextjs_Api();
 }
-
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-wordpress-nextjs-deactivator.php
- */
-function deactivate_wordpress_nextjs() {
-	include_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-nextjs-deactivator.php';
-	Wordpress_Nextjs_Deactivator::deactivate();
-}
-
-
-register_activation_hook( __FILE__, 'activate_wordpress_nextjs' );
-register_deactivation_hook( __FILE__, 'deactivate_wordpress_nextjs' );
-
-/**
- * The core plugin class that is used to define internationalization,
- * admin-specific hooks, and public-facing site hooks.
- */
-require plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-nextjs.php';
-
-/**
- * Begins execution of the plugin.
- *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.g
- *
- * @since 1.0.0
- */
-function run_wordpress_nextjs() {
-	$plugin = new Wordpress_Nextjs();
-	$plugin->run();
-}
-
-run_wordpress_nextjs();

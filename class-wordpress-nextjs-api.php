@@ -3,16 +3,6 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://www.dotred.nl
- * @since      1.0.0
- *
- * @package    Wordpress_Nextjs
- * @subpackage Wordpress_Nextjs/public
- */
-
-/**
- * The public-facing functionality of the plugin.
- *
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-facing stylesheet and JavaScript.
  *
@@ -20,26 +10,39 @@
  * @subpackage Wordpress_Nextjs/public
  * @author     Koen Poelhekke <info@dotred.nl>
  */
-class Wordpress_Nextjs_Public {
+class Wordpress_Nextjs_Api {
 
 	/**
 	 * Holds the values to be used in the fields callbacks
 	 */
 	private $options;
 
-	public function __construct( $plugin_name ) {
-		$this->options = get_option( $plugin_name );
+	public function __construct() {
+		$this->options = get_option( 'wordpress-nextjs' );
+
+		add_filter( 'page_link', array( $this, 'remove_base_url' ) );
+		add_filter( 'post_link', array( $this, 'remove_base_url' ) );
+		add_filter( 'post_type_link', array( $this, 'remove_base_url' ) );
 	}
 
 	/**
 	 * Remove the base url from the permalinks
 	 *
 	 * @param string $url
+	 *
+	 * @since 1.0.0
 	 */
 	public function remove_base_url( $url ) {
 		return untrailingslashit( str_replace( home_url(), '', $url ) );
 	}
 
+	/**
+	 * Adds a base64 preview image to the image response
+	 *
+	 * @param $image
+	 *
+	 * @since 1.0.0
+	 */
 	public function add_base64_image_preview( $image ) {
 		if ( isset( $this->options['base64_preview'] ) && $this->options['base64_preview'] ) {
 			if ( is_array( $image ) ) {
@@ -59,6 +62,13 @@ class Wordpress_Nextjs_Public {
 		return $image;
 	}
 
+	/**
+	 * Adds a srcset and sizes property to the image response
+	 *
+	 * @param $image
+	 *
+	 * @since 1.0.0
+	 */
 	public function add_image_srcsets( $image ) {
 		if ( isset( $this->options['image_srcsets'] ) && $this->options['image_srcsets'] ) {
 			if ( is_array( $image ) ) {
