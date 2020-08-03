@@ -37,6 +37,7 @@ define( 'WORDPRESS_NEXTJS_VERSION', '1.0.0' );
 define( 'WORDPRESS_NEXTJS_OPTIONS_KEY', 'wordpress-nextjs' );
 define( 'WORDPRESS_NEXTJS_LANGUAGE_DOMAIN', 'wordpress-nextjs' );
 
+
 require __DIR__ . '/vendor/autoload.php';
 
 require __DIR__ . '/includes/class-wordpress-nextjs-fields.php';
@@ -44,6 +45,27 @@ require __DIR__ . '/includes/class-wordpress-nextjs-preview.php';
 
 require __DIR__ . '/class-wordpress-nextjs-admin.php';
 require __DIR__ . '/class-wordpress-nextjs-api.php';
+
+/**
+ * The code that runs during plugin activation.
+ * This action is documented in includes/class-wordpress-nextjs-activator.php
+ */
+function activate_wordpress_nextjs() {
+	include_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-nextjs-activation.php';
+	Wordpress_Nextjs_Activation::activate();
+}
+
+/**
+ * The code that runs during plugin deactivation.
+ * This action is documented in includes/class-wordpress-nextjs-deactivator.php
+ */
+function deactivate_wordpress_nextjs() {
+	include_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-nextjs-activation.php';
+	Wordpress_Nextjs_Activation::deactivate();
+}
+
+register_activation_hook( __FILE__, 'activate_wordpress_nextjs' );
+register_deactivation_hook( __FILE__, 'deactivate_wordpress_nextjs' );
 
 new Wordpress_Nextjs_Preview();
 

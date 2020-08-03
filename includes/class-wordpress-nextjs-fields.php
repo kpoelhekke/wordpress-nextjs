@@ -9,11 +9,11 @@ class Wordpress_Nextjs_Fields {
 	 * @return void
 	 * @since 1.0.0
 	 */
-	public static function url( $args = [] ) {
+	public static function input( $args = [] ) {
 		?>
         <div>
-        <input type="url" class="regular-text" name="<?= esc_attr( $args['name'] ); ?>"
-               value="<?= esc_url( $args['value'] ); ?>">
+        <input type="text" class="regular-text" name="<?= esc_attr( $args['name'] ); ?>"
+               value="<?= esc_attr( $args['value'] ); ?>">
 		<?= ! empty( $args['description'] ) ? "<p class=\"description\">{$args['description']}</p>" : ''; ?>
         </div><?php
 	}

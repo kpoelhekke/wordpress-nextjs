@@ -1,8 +1,6 @@
 <?php
 
 class Wordpress_Nextjs_Admin {
-
-
 	/**
 	 * Holds the values to be used in the fields callbacks
 	 */
@@ -13,7 +11,6 @@ class Wordpress_Nextjs_Admin {
 	 */
 	public function __construct() {
 		$this->options = get_option( WORDPRESS_NEXTJS_OPTIONS_KEY );
-
 
 		add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
 		add_action( 'admin_init', array( $this, 'page_init' ) );
@@ -65,7 +62,18 @@ class Wordpress_Nextjs_Admin {
 		add_settings_section(
 			'wordpress-nextjs-images',
 			__( 'Images', WORDPRESS_NEXTJS_LANGUAGE_DOMAIN ),
-			array( $this, 'print_section_info' ),
+			function () {
+				_e( 'WordPress NextJS can add base64 encoded image thumbnails to all images in the rest API. These can be used as a preview when your images are still loading.', WORDPRESS_NEXTJS_LANGUAGE_DOMAIN );
+			},
+			$key
+		);
+
+		add_settings_section(
+			'wordpress-nextjs-preview',
+			__( 'Previews', WORDPRESS_NEXTJS_LANGUAGE_DOMAIN ),
+			function () {
+				_e( 'The secret key is used to generate a JWT accesstoken. You can change the key to invalidate all existing tokens.', WORDPRESS_NEXTJS_LANGUAGE_DOMAIN );
+			},
 			$key
 		);
 
@@ -92,13 +100,17 @@ class Wordpress_Nextjs_Admin {
 				'value' => isset( $this->options['image_srcsets'] ) ? $this->options['image_srcsets'] : 0
 			)
 		);
-	}
 
-
-	/**
-	 * Print the Section text
-	 */
-	public function print_section_info() {
-		_e( 'WordPress NextJS can add base64 encoded image thumbnails to all images in the rest API. These can be used as a preview when your images are still loading.', WORDPRESS_NEXTJS_LANGUAGE_DOMAIN );
+		add_settings_field(
+			'auth_secret',
+			__( 'Authentication Secret key', WORDPRESS_NEXTJS_LANGUAGE_DOMAIN ),
+			array( 'Wordpress_Nextjs_Fields', 'input' ),
+			$key,
+			'wordpress-nextjs-preview',
+			array(
+				'name'  => "{$key}[auth_secret]",
+				'value' => isset( $this->options['auth_secret'] ) ? $this->options['auth_secret'] : ""
+			)
+		);
 	}
 }

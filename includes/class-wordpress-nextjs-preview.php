@@ -25,7 +25,14 @@ class Wordpress_Nextjs_Preview {
 	 */
 	private $messages = array();
 
+	/**
+	 * Holds the values to be used in the fields callbacks
+	 */
+	private $options;
+
 	public function __construct() {
+		$this->options = get_option( WORDPRESS_NEXTJS_OPTIONS_KEY );
+
 		add_filter( 'rest_pre_dispatch', array( $this, 'rest_pre_dispatch' ), 10, 3 );
 		add_filter( 'determine_current_user', array( $this, 'determine_current_user' ) );
 
@@ -89,7 +96,7 @@ class Wordpress_Nextjs_Preview {
 	 * @return WP_REST_Response|string Return as raw token string or as a formatted WP_REST_Response.
 	 */
 	public function generate_token( $user, $return_raw = true ) {
-		$secret_key = defined( 'JWT_AUTH_SECRET_KEY' ) ? JWT_AUTH_SECRET_KEY : false;
+		$secret_key = isset( $this->options['auth_secret'] ) ? $this->options['auth_secret'] : false;
 		$issued_at  = time();
 		$not_before = $issued_at;
 		$not_before = apply_filters( 'wordpress_nextjs_not_before', $not_before, $issued_at );
@@ -228,7 +235,7 @@ class Wordpress_Nextjs_Preview {
 		}
 
 		// Get the Secret Key.
-		$secret_key = defined( 'JWT_AUTH_SECRET_KEY' ) ? JWT_AUTH_SECRET_KEY : false;
+		$secret_key = isset( $this->options['auth_secret'] ) ? $this->options['auth_secret'] : false;
 
 		if ( ! $secret_key ) {
 			return new WP_REST_Response(
