@@ -30,12 +30,11 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-/**
- * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
- * Rename this for your plugin and update it as you release new versions.
- */
 define( 'WORDPRESS_NEXTJS_VERSION', '1.0.0' );
+define( 'WORDPRESS_NEXTJS_OPTIONS_KEY', 'wordpress-nextjs' );
+define( 'WORDPRESS_NEXTJS_LANGUAGE_DOMAIN', 'wordpress-nextjs' );
+
+require __DIR__ . '/includes/class-wordpress-nextjs-fields.php';
 
 require __DIR__ . '/class-wordpress-nextjs-admin.php';
 require __DIR__ . '/class-wordpress-nextjs-api.php';

@@ -18,7 +18,7 @@ class Wordpress_Nextjs_Api {
 	private $options;
 
 	public function __construct() {
-		$this->options = get_option( 'wordpress-nextjs' );
+		$this->options = get_option( WORDPRESS_NEXTJS_OPTIONS_KEY );
 
 		add_filter( 'page_link', array( $this, 'remove_base_url' ) );
 		add_filter( 'post_link', array( $this, 'remove_base_url' ) );
