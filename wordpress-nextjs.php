@@ -30,14 +30,22 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+define( 'JWT_AUTH_SECRET_KEY', 'MIJN SECRET' );
+
+
 define( 'WORDPRESS_NEXTJS_VERSION', '1.0.0' );
 define( 'WORDPRESS_NEXTJS_OPTIONS_KEY', 'wordpress-nextjs' );
 define( 'WORDPRESS_NEXTJS_LANGUAGE_DOMAIN', 'wordpress-nextjs' );
 
+require __DIR__ . '/vendor/autoload.php';
+
 require __DIR__ . '/includes/class-wordpress-nextjs-fields.php';
+require __DIR__ . '/includes/class-wordpress-nextjs-preview.php';
 
 require __DIR__ . '/class-wordpress-nextjs-admin.php';
 require __DIR__ . '/class-wordpress-nextjs-api.php';
+
+new Wordpress_Nextjs_Preview();
 
 if ( is_admin() ) {
 	new Wordpress_Nextjs_Admin();

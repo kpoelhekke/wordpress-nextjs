@@ -16,6 +16,7 @@ services:
     volumes:
       - wordpress:/var/www/html
       - .:/var/www/html/wp-content/plugins/wordpress-nextjs:rw
+      - .htaccess:/var/www/html/.htaccess:rw
 
   database:
     image: mysql:5.7

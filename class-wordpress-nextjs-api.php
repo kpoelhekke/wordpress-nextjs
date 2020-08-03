@@ -23,6 +23,10 @@ class Wordpress_Nextjs_Api {
 		add_filter( 'page_link', array( $this, 'remove_base_url' ) );
 		add_filter( 'post_link', array( $this, 'remove_base_url' ) );
 		add_filter( 'post_type_link', array( $this, 'remove_base_url' ) );
+
+		if ( isset( $this->options['base64_preview'] ) && $this->options['base64_preview'] ) {
+			add_image_size( 'base64', 4, 4, true );
+		}
 	}
 
 	/**

@@ -10,7 +10,9 @@
       "email": "info@dotred.nl"
     }
   ],
-  "require": {},
+  "require": {
+    "firebase/php-jwt": "^5.2"
+  },
   "require-dev": {},
   "scripts": {}
 }
