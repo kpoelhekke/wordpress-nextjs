@@ -30,9 +30,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'JWT_AUTH_SECRET_KEY', 'MIJN SECRET' );
-
-
 define( 'WORDPRESS_NEXTJS_VERSION', '1.0.0' );
 define( 'WORDPRESS_NEXTJS_OPTIONS_KEY', 'wordpress-nextjs' );
 define( 'WORDPRESS_NEXTJS_LANGUAGE_DOMAIN', 'wordpress-nextjs' );
