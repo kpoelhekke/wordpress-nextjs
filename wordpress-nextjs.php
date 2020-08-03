@@ -51,7 +51,7 @@ require __DIR__ . '/class-wordpress-nextjs-api.php';
  * This action is documented in includes/class-wordpress-nextjs-activator.php
  */
 function activate_wordpress_nextjs() {
-	include_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-nextjs-activation.php';
+	include_once __DIR__ . '/includes/class-wordpress-nextjs-activation.php';
 	Wordpress_Nextjs_Activation::activate();
 }
 
@@ -60,7 +60,7 @@ function activate_wordpress_nextjs() {
  * This action is documented in includes/class-wordpress-nextjs-deactivator.php
  */
 function deactivate_wordpress_nextjs() {
-	include_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-nextjs-activation.php';
+	include_once __DIR__ . '/includes/class-wordpress-nextjs-activation.php';
 	Wordpress_Nextjs_Activation::deactivate();
 }
 

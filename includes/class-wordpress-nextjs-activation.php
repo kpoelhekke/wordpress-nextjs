@@ -7,7 +7,7 @@ class Wordpress_Nextjs_Activation {
 			'image_srcsets'  => 'on',
 			'auth_secret'    => md5( rand() )
 		);
-		$existing_options = ! empty( get_option( 'WORDPRESS_NEXTJS_OPTIONS_KEY' ) ) ? get_option( 'WORDPRESS_NEXTJS_OPTIONS_KEY' ) : [];
+		$existing_options = ! empty( get_option( WORDPRESS_NEXTJS_OPTIONS_KEY ) ) ? get_option( WORDPRESS_NEXTJS_OPTIONS_KEY ) : [];
 
 		update_option( WORDPRESS_NEXTJS_OPTIONS_KEY, array_merge( $initial_options, $existing_options ) );
 	}
